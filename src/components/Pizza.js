@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
 import { TextField, Button, Box } from "@mui/material";
-import AdminPizzaList from "./PizzaDeatils";
+import {AdminPizzaList} from "./PizzaDeatils";
 
 export const AddPizza = () => {
   const [pizza, setPizza] = useState({ 

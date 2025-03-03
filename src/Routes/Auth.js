@@ -4,7 +4,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 // import { SignUp } from '../Pages/SignUp';
 // import Cookies from "js-cookie";
 // import { OTPInput } from "../Pages/OtpSend";
-import { Dashboard } from "../Pages/Dashboard";
 import { OrderManagement } from "../Pages/OrderManagement";
 import Notifications from "../Pages/Notifications";
 import TastyDashboard from "../components/Header";
@@ -21,7 +20,7 @@ export const Auth = () => {
        <Routes>
         <Route path="/" element={<Home/>}/>
             {/* <Route path="/" element={<Navigate to="/dashboard" />} /> */}
-            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/dashboard" element={<TastyDashboard />} />
             <Route path="/product" element={<AddPizza/>}/>
             <Route path="/inventory" element={<AddInventoryItem />} />
             <Route path="/orders" element={<OrderManagement />} />

@@ -15,16 +15,17 @@ import {
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { EditPizzaForm } from "../Models/Model";
+import { ConfirmDialog } from "../Models/deleteInventory";
 
-const AdminPizzaList = () => {
+export const AdminPizzaList = () => {
   const [pizzas, setPizzas] = useState([])
   const [selectedPizza, setSelectedPizza] = useState(null);
+  const [openConfirm, setOpenConfirm] = useState(false);
+  const [deleteId ,setDeleteId] = useState(null)
 
   useEffect(() => {
     fetchPizzas();
   }, []);
-
-  
 
   const fetchPizzas = async () => {
     try {
@@ -48,15 +49,23 @@ const AdminPizzaList = () => {
     setSelectedPizza(pizza)
   }
 
+  const handleDeleteClick = (id) => {
+    setDeleteId(id);
+    setOpenConfirm(true);
+  };
+
   // Handle Delete Pizza
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this pizza?")) {
+  const handleDelete = async () => {
+    if (deleteId) {
+      
       try {
-        await axios.delete(`http://localhost:8000/delete/${id}`);
-        setPizzas((prevPizzas) => prevPizzas.filter((pizza) => pizza._id !== id)); // Remove deleted pizza from state
+        await axios.delete(`http://localhost:8000/delete/${deleteId}`);
+        setPizzas((prevPizzas) => prevPizzas.filter((pizza) => pizza._id !== deleteId)); 
       } catch (error) {
         console.error("Error deleting pizza:", error);
       }
+      setDeleteId(null);
+    setOpenConfirm(false);
     }
   };
 
@@ -90,7 +99,7 @@ const AdminPizzaList = () => {
                   <IconButton color="primary">
                     <EditIcon  onClick={() => handleEdit(pizza)}/>
                   </IconButton>
-                  <IconButton color="error" onClick={() => handleDelete(pizza._id)}>
+                  <IconButton color="error" onClick={() => handleDeleteClick(pizza._id)}>
                     <DeleteIcon />
                   </IconButton>
                 </TableCell>
@@ -107,9 +116,14 @@ const AdminPizzaList = () => {
         refresh={handleUpdate}
         />
       )}
-      
+       <ConfirmDialog
+        open={openConfirm}
+        handleClose={() => setOpenConfirm(false)}
+        handleConfirm={handleDelete}
+        title="Delete Confirmation"
+        message="Are you sure you want to delete this pizza?"
+      />
     </Box>
   );
 };
 
-export default AdminPizzaList;

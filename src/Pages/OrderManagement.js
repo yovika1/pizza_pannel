@@ -8,7 +8,6 @@ import axios from 'axios';
 export const OrderManagement = () => {
   const [orders, setOrders] = useState([]);
 
-  // Fetch orders from backend
   const fetchOrders = async () => {
     try {
       const response = await axios.get('http://localhost:8000/order-details'); 
@@ -49,7 +48,8 @@ export const OrderManagement = () => {
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Order ID</TableCell>
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Customer</TableCell>
               <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Items</TableCell>
-              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Total (INR)</TableCell>              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Status</TableCell>
+              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Total (INR)</TableCell>              
+              <TableCell sx={{ color: 'white', fontWeight: 'bold' }}>Status</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
