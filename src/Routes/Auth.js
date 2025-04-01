@@ -5,11 +5,12 @@ import { Navigate, Route, Routes } from "react-router-dom";
 // import Cookies from "js-cookie";
 // import { OTPInput } from "../Pages/OtpSend";
 import { OrderManagement } from "../Pages/OrderManagement";
-import Notifications from "../Pages/Notifications";
+import {Notifications} from "../Pages/Notifications";
 import TastyDashboard from "../components/Header";
 import AddInventoryItem from "../Pages/InventoryTable";
 import { Home } from "../Pages/Home";
 import { AddPizza } from "../components/Pizza";
+import StockPage from "../Pages/Stock";
 // import OTPInput from '../Components/OtpSend';
 
 export const Auth = () => {
@@ -25,6 +26,8 @@ export const Auth = () => {
             <Route path="/inventory" element={<AddInventoryItem />} />
             <Route path="/orders" element={<OrderManagement />} />
             <Route path="/notifications" element={<Notifications />} />
+            <Route path="/stock-Mangement" element={<StockPage />} />
+            
             <Route path="/*" element={<Navigate to={"/"}/>}/>
 
           </Routes>

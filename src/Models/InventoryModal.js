@@ -8,7 +8,6 @@ const InventoryModal = ({ KnowPizza, onClose, refresh }) => {
     sauce: '',
     cheese: '',
     meat: '',
-    ingredients: '',
   });
 
   useEffect(() => {
@@ -18,7 +17,6 @@ const InventoryModal = ({ KnowPizza, onClose, refresh }) => {
         sauce: KnowPizza.sauce,
         cheese: KnowPizza.cheese,
         meat: KnowPizza.meat,
-        ingredients: KnowPizza.ingredients.join(', '),
       });
     }
   }, [KnowPizza]);
@@ -32,7 +30,8 @@ const InventoryModal = ({ KnowPizza, onClose, refresh }) => {
   const handleSubmit = async () => {
     try {
       if (KnowPizza) {
-        await axios.put(`http://localhost:8000/updateInventory/${KnowPizza._id}`, formData);
+       const response= await axios.put(`http://localhost:8000/updateInventory/${KnowPizza._id}`, formData);
+       console.log("updated pizza", response)
       } else {
         await axios.post('http://localhost:8000/createInventory', formData);
       }
@@ -44,13 +43,12 @@ const InventoryModal = ({ KnowPizza, onClose, refresh }) => {
   };
 
   return (
-    <Modal open={true} onClose={onClose}>
-      <Box sx={{ p: 4, background: "#fff", width: 400, margin: "auto", mt: "10%" }}>
+    <Modal open={true} onClose={onClose} >
+      <Box sx={{ p: 4, background: "#fff", width: 400, margin: "auto", mt: "10%" ,backgroundColor:'rgba(218, 196, 163, 0.95)'}}>
         <TextField fullWidth margin="normal" label="Base" name="base" value={formData.base} onChange={handleChange} />
         <TextField fullWidth margin="normal" label="Sauce" name="sauce" value={formData.sauce} onChange={handleChange} />
         <TextField fullWidth margin="normal" label="Cheese" name="cheese" value={formData.cheese} onChange={handleChange} />
         <TextField fullWidth margin="normal" label="Meat" name="meat" value={formData.meat} onChange={handleChange} />
-        <TextField fullWidth margin="normal" label="Ingredients (comma-separated)" name="ingredients" value={formData.ingredients} onChange={handleChange} />
 
         <Button variant="contained" color="secondary" onClick={handleSubmit} sx={{ mt: 2 }}>
           {KnowPizza ? "Update Item" : "Add Item"}

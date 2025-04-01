@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Box,
   Grid,
@@ -17,9 +17,31 @@ import LocalPizzaIcon from "@mui/icons-material/LocalPizza";
 import MenuIcon from "@mui/icons-material/Menu";
 import backgroundImg from '../Media/pizza.jpeg'
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const TastyDashboard = () => {
-  const navigate = useNavigate()
+
+  const [unreadCount, setUnreadCount] = useState(0);
+  const navigate = useNavigate();
+
+  // Fetch unread notifications count
+  const fetchUnreadCount = async () => {
+    try {
+      const { data } = await axios.get("http://localhost:8000/getstock-notify");
+      setUnreadCount(data.unreadCount);
+    } catch (error) {
+      console.error("Error fetching unread count:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchUnreadCount();
+  }, []);
+
+  const handleClick = async () => {
+    navigate("/notifications");
+  };
+
   return (
     <Box
       sx={{
@@ -31,24 +53,22 @@ const TastyDashboard = () => {
       }}
     >
 
-      {/* Navbar */}
       <AppBar position="sticky" color="primary" sx={{ zIndex: 1 }}>
         <Toolbar>
           <IconButton edge="start" color="inherit" aria-label="menu">
-            <MenuIcon />
+            {/* <MenuIcon /> */}
           </IconButton>
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             Pizza Delight Dashboard
           </Typography>
-          <IconButton color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <NotificationsIcon />
+          <IconButton onClick={handleClick} color="inherit">
+          <Badge badgeContent={unreadCount} color="secondary">
+            <NotificationsIcon/>
           </Badge>
         </IconButton>
         </Toolbar>
       </AppBar>
 
-      {/* Header Section */}
       <Box textAlign="center" sx={{ py: 5, color: "white" }}>
         <Typography variant="h1">Welcome to Pizza Delight!</Typography>
         <Typography variant="h3" color="secondary">

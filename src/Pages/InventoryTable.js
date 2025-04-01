@@ -52,7 +52,6 @@ const AddInventoryItem = () => {
               <TableCell>Sauces</TableCell>
               <TableCell>Cheese</TableCell>
               <TableCell>Meat</TableCell>
-              <TableCell>Ingredients</TableCell>
               <TableCell>Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -63,7 +62,6 @@ const AddInventoryItem = () => {
                 <TableCell>{item.sauce}</TableCell>
                 <TableCell>{item.cheese}</TableCell>
                 <TableCell>{item.meat}</TableCell>
-                <TableCell>{item.ingredients.join(', ')}</TableCell>
                 <TableCell>
                   <Button onClick={() => handleEditItem(item)} color="secondary">Edit</Button>
                 </TableCell>

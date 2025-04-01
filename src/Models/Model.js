@@ -31,8 +31,8 @@ export const EditPizzaForm = ({ pizza, onClose, refresh }) => {
       console.log(response);
 
       if (response.status === 200) {
-        refresh(); // Refresh the pizza list in AdminPizzaList
-        onClose(); // Close the modal
+        refresh();
+        onClose();
       } else {
         setError("Failed to update pizza.");
       }
